@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// This script handle all the control code, so detecting when the users click on a unit or building and selecting those
@@ -12,6 +13,8 @@ public class UserControl : MonoBehaviour
     public Camera GameCamera;
     public float PanSpeed = 10.0f;
     public GameObject Marker;
+
+    public GameObject ExitButton;
     
     private Unit m_Selected = null;
 
@@ -61,9 +64,19 @@ public class UserControl : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ExitButton.SetActive(!ExitButton.activeSelf);
+        }
+
         MarkerHandling();
     }
     
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     // Handle displaying the marker above the unit that is currently selected (or hiding it if no unit is selected)
     void MarkerHandling()
     {
